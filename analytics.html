@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ ADMIN <span>PANEL</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 3rem 0;">
+        <h1 style="margin-bottom: 2rem;">Analytics & Insights</h1>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            <div class="card" style="text-align: center;">
+                <div class="stat-value">{{ total_users.count if total_users else 0 }}</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="stat-value">{{ total_schemes.count if total_schemes else 0 }}</div>
+                <div class="stat-label">Schemes</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="stat-value">{{ total_queries.count if total_queries else 0 }}</div>
+                <div class="stat-label">Total Queries</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 2rem;">Key Metrics</h2>
+            <p><strong>User Growth:</strong> Track monthly user registrations</p>
+            <p><strong>Query Rate:</strong> Average queries per user</p>
+            <p><strong>Scheme Coverage:</strong> Schemes per category</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

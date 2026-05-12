@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Eligibility - TN GOVT SCHEME BOT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ TN GOVT <span>SCHEME BOT</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('chat') }}">Chat</a></li>
+                <li><a href="{{ url_for('schemes') }}">Schemes</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 3rem 0;">
+        <h1 style="margin-bottom: 2rem;">Check Your Eligibility ✓</h1>
+
+        <!-- User Profile Summary -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <h3 style="margin-bottom: 1.5rem;">Your Profile</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <p style="color: #64748b; margin-bottom: 0.5rem;">Name</p>
+                    <p style="font-weight: 600; font-size: 1.1rem;">{{ user.full_name }}</p>
+                </div>
+                <div>
+                    <p style="color: #64748b; margin-bottom: 0.5rem;">Age</p>
+                    <p style="font-weight: 600; font-size: 1.1rem;">{{ user.age }}</p>
+                </div>
+                <div>
+                    <p style="color: #64748b; margin-bottom: 0.5rem;">District</p>
+                    <p style="font-weight: 600; font-size: 1.1rem;">{{ user.district }}</p>
+                </div>
+                <div>
+                    <p style="color: #64748b; margin-bottom: 0.5rem;">Occupation</p>
+                    <p style="font-weight: 600; font-size: 1.1rem;">{{ user.occupation }}</p>
+                </div>
+                <div>
+                    <p style="color: #64748b; margin-bottom: 0.5rem;">Category</p>
+                    <p style="font-weight: 600; font-size: 1.1rem;">{{ user.category }}</p>
+                </div>
+                <div>
+                    <p style="color: #64748b; margin-bottom: 0.5rem;">Gender</p>
+                    <p style="font-weight: 600; font-size: 1.1rem;">{{ user.gender }}</p>
+                </div>
+            </div>
+            <button onclick="APP.checkEligibility()" class="btn btn-primary" style="margin-top: 2rem;">
+                Check Eligibility
+            </button>
+        </div>
+
+        <!-- Results -->
+        <div id="eligibility-results"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem;">
+        <div class="footer-bottom" style="text-align: center; padding: 2rem;">
+            <p>&copy; 2024 TN GOVT SCHEME BOT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

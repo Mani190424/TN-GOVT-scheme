@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Scheme - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ ADMIN <span>PANEL</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('admin_schemes') }}">Schemes</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 3rem 0; max-width: 800px;">
+        <h1 style="margin-bottom: 2rem;">Edit Scheme</h1>
+
+        <div class="card">
+            <form method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Scheme Name *</label>
+                        <input type="text" name="scheme_name" class="form-control" value="{{ scheme.scheme_name }}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" class="form-control">
+                        <option value="Agricultural" {% if scheme.category == 'Agricultural' %}selected{% endif %}>Agricultural</option>
+                        <option value="Education" {% if scheme.category == 'Education' %}selected{% endif %}>Education</option>
+                        <option value="Health" {% if scheme.category == 'Health' %}selected{% endif %}>Health</option>
+                        <option value="Social Welfare" {% if scheme.category == 'Social Welfare' %}selected{% endif %}>Social Welfare</option>
+                        <option value="Housing" {% if scheme.category == 'Housing' %}selected{% endif %}>Housing</option>
+                        <option value="Employment" {% if scheme.category == 'Employment' %}selected{% endif %}>Employment</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control" rows="3">{{ scheme.description or '' }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Eligibility Criteria</label>
+                    <textarea name="eligibility" class="form-control" rows="3">{{ scheme.eligibility or '' }}</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Minimum Age</label>
+                        <input type="number" name="age_min" class="form-control" value="{{ scheme.age_min or '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum Age</label>
+                        <input type="number" name="age_max" class="form-control" value="{{ scheme.age_max or '' }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Required Documents</label>
+                    <textarea name="required_documents" class="form-control" rows="3">{{ scheme.required_documents or '' }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Benefits</label>
+                    <textarea name="benefits" class="form-control" rows="3">{{ scheme.benefits or '' }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Benefit Amount</label>
+                    <input type="text" name="benefit_amount" class="form-control" value="{{ scheme.benefit_amount or '' }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Application Process</label>
+                    <textarea name="application_process" class="form-control" rows="3">{{ scheme.application_process or '' }}</textarea>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary">Update Scheme</button>
+                    <a href="{{ url_for('admin_schemes') }}" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

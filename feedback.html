@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Feedback - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ ADMIN <span>PANEL</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 3rem 0;">
+        <h1 style="margin-bottom: 2rem;">User Feedback</h1>
+
+        {% if feedback %}
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+            {% for item in feedback %}
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem;">{{ item.full_name }}</h3>
+                        <p style="color: #64748b; font-size: 0.9rem;">{{ item.created_at.strftime('%B %d, %Y') }}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">
+                            {% for i in range(1, 6) %}
+                                {% if i <= item.rating %}⭐{% else %}☆{% endif %}
+                            {% endfor %}
+                        </div>
+                        <p style="color: #64748b; font-size: 0.9rem;">{{ item.rating }}/5</p>
+                    </div>
+                </div>
+                <p style="background: var(--light); padding: 1rem; border-radius: 0.5rem;">{{ item.feedback_text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card" style="text-align: center; padding: 3rem;">
+            <p>No feedback received yet.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

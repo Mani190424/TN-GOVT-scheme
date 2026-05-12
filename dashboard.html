@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - TN GOVT SCHEME BOT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ ADMIN <span>PANEL</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('admin_schemes') }}">Schemes</a></li>
+                <li><a href="{{ url_for('admin_users') }}">Users</a></li>
+                <li><a href="{{ url_for('admin_analytics') }}">Analytics</a></li>
+                <li><a href="{{ url_for('admin_feedback') }}">Feedback</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 3rem 0;">
+        <h1 style="margin-bottom: 2rem;">Admin Dashboard</h1>
+
+        <!-- Stats -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            <div class="card" style="text-align: center;">
+                <div class="stat-value">{{ total_users.count if total_users else 0 }}</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="stat-value">{{ total_schemes.count if total_schemes else 0 }}</div>
+                <div class="stat-label">Total Schemes</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="stat-value">{{ total_queries.count if total_queries else 0 }}</div>
+                <div class="stat-label">Total Queries</div>
+            </div>
+        </div>
+
+        <!-- Management Buttons -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            <a href="{{ url_for('admin_add_scheme') }}" class="card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">➕</div>
+                <h3>Add New Scheme</h3>
+            </a>
+        </div>
+
+        <!-- Recent Chats -->
+        {% if recent_chats %}
+        <div class="card">
+            <h2 style="margin-bottom: 2rem;">Recent User Queries</h2>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border);">
+                            <th style="text-align: left; padding: 1rem;">User</th>
+                            <th style="text-align: left; padding: 1rem;">Query</th>
+                            <th style="text-align: left; padding: 1rem;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for chat in recent_chats %}
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 1rem;">{{ chat.full_name }}</td>
+                            <td style="padding: 1rem;">{{ chat.user_query[:50] }}...</td>
+                            <td style="padding: 1rem;">{{ chat.created_at.strftime('%B %d, %Y') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem;">
+        <div class="footer-bottom" style="text-align: center; padding: 2rem;">
+            <p>&copy; 2024 TN GOVT SCHEME BOT ADMIN. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

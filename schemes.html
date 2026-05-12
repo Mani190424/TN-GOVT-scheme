@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schemes Management - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ ADMIN <span>PANEL</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('admin_schemes') }}">Schemes</a></li>
+                <li><a href="{{ url_for('admin_users') }}">Users</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 3rem 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>Manage Schemes</h1>
+            <a href="{{ url_for('admin_add_scheme') }}" class="btn btn-primary">➕ Add New Scheme</a>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Schemes Table -->
+        {% if schemes %}
+        <div class="card" style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--border);">
+                        <th style="text-align: left; padding: 1rem;">Scheme Name</th>
+                        <th style="text-align: left; padding: 1rem;">Category</th>
+                        <th style="text-align: left; padding: 1rem;">Benefit</th>
+                        <th style="text-align: left; padding: 1rem;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for scheme in schemes %}
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 1rem;">{{ scheme.scheme_name }}</td>
+                        <td style="padding: 1rem;">{{ scheme.category or 'General' }}</td>
+                        <td style="padding: 1rem;">{{ scheme.benefit_amount or 'N/A' }}</td>
+                        <td style="padding: 1rem; display: flex; gap: 0.5rem;">
+                            <a href="{{ url_for('admin_edit_scheme', scheme_id=scheme.id) }}" class="btn btn-secondary btn-sm">Edit</a>
+                            <form method="POST" action="{{ url_for('admin_delete_scheme', scheme_id=scheme.id) }}" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="card" style="text-align: center; padding: 3rem;">
+            <p>No schemes found. <a href="{{ url_for('admin_add_scheme') }}">Add one</a></p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem;">
+        <div class="footer-bottom" style="text-align: center; padding: 2rem;">
+            <p>&copy; 2024 TN GOVT SCHEME BOT ADMIN.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

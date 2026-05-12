@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - TN GOVT SCHEME BOT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ TN GOVT <span>SCHEME BOT</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('chat') }}">Chat</a></li>
+                <li><a href="{{ url_for('schemes') }}">Schemes</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 3rem 0; max-width: 600px;">
+        <h1 style="margin-bottom: 2rem;">My Profile</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <form id="profile-form" method="POST" action="{{ url_for('update_profile') }}">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="fullname" class="form-control" value="{{ user.full_name }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email (Read-only)</label>
+                    <input type="email" class="form-control" value="{{ user.email }}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" name="mobile" class="form-control" value="{{ user.mobile_number }}" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" name="age" class="form-control" value="{{ user.age or '' }}" min="1" max="120">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="gender" class="form-control">
+                            <option value="Male" {% if user.gender == 'Male' %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if user.gender == 'Female' %}selected{% endif %}>Female</option>
+                            <option value="Other" {% if user.gender == 'Other' %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>District</label>
+                        <input type="text" name="district" class="form-control" value="{{ user.district or '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Occupation</label>
+                        <input type="text" name="occupation" class="form-control" value="{{ user.occupation or '' }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" class="form-control">
+                        <option value="General" {% if user.category == 'General' %}selected{% endif %}>General</option>
+                        <option value="OBC" {% if user.category == 'OBC' %}selected{% endif %}>OBC</option>
+                        <option value="SC" {% if user.category == 'SC' %}selected{% endif %}>SC</option>
+                        <option value="ST" {% if user.category == 'ST' %}selected{% endif %}>ST</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Annual Income</label>
+                    <input type="number" name="income" class="form-control" value="{{ user.annual_income or '' }}">
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem;">
+        <div class="footer-bottom" style="text-align: center; padding: 2rem;">
+            <p>&copy; 2024 TN GOVT SCHEME BOT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

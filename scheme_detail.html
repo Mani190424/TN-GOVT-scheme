@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ scheme.scheme_name }} - TN GOVT SCHEME BOT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ TN GOVT <span>SCHEME BOT</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('schemes') }}">Schemes</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 3rem 0;">
+        <a href="{{ url_for('schemes') }}" style="color: var(--secondary); margin-bottom: 1rem;">← Back to Schemes</a>
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+                <div>
+                    <span class="scheme-category">{{ scheme.category or 'General' }}</span>
+                    <h1 style="margin-top: 1rem;">{{ scheme.scheme_name }}</h1>
+                </div>
+                <button onclick="APP.toggleFavorite({{ scheme.id }})" class="btn btn-outline btn-sm">❤️ Add to Favorites</button>
+            </div>
+
+            {% if scheme.description %}
+            <div style="background: var(--light); padding: 1.5rem; border-radius: 0.5rem; margin: 2rem 0;">
+                <h3 style="margin-bottom: 1rem;">📝 Description</h3>
+                <p>{{ scheme.description }}</p>
+            </div>
+            {% endif %}
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                {% if scheme.benefit_amount %}
+                <div>
+                    <h4 style="color: var(--success); margin-bottom: 0.5rem;">💰 Benefit Amount</h4>
+                    <p style="font-size: 1.5rem; font-weight: 700;">{{ scheme.benefit_amount }}</p>
+                </div>
+                {% endif %}
+
+                {% if scheme.age_min or scheme.age_max %}
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📅 Age Range</h4>
+                    <p>
+                        {% if scheme.age_min %}{{ scheme.age_min }}{% endif %}
+                        {% if scheme.age_min and scheme.age_max %} - {% endif %}
+                        {% if scheme.age_max %}{{ scheme.age_max }} years{% endif %}
+                    </p>
+                </div>
+                {% endif %}
+
+                {% if scheme.district %}
+                <div>
+                    <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">📍 District</h4>
+                    <p>{{ scheme.district }}</p>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if scheme.eligibility %}
+            <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid var(--secondary); margin: 2rem 0;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">✓ Eligibility Criteria</h3>
+                <p style="white-space: pre-wrap;">{{ scheme.eligibility }}</p>
+            </div>
+            {% endif %}
+
+            {% if scheme.required_documents %}
+            <div style="margin: 2rem 0;">
+                <h3 style="margin-bottom: 1rem;">📄 Required Documents</h3>
+                <p style="white-space: pre-wrap; background: var(--light); padding: 1.5rem; border-radius: 0.5rem;">{{ scheme.required_documents }}</p>
+            </div>
+            {% endif %}
+
+            {% if scheme.benefits %}
+            <div style="margin: 2rem 0;">
+                <h3 style="margin-bottom: 1rem;">🎁 Benefits</h3>
+                <p style="white-space: pre-wrap; background: var(--light); padding: 1.5rem; border-radius: 0.5rem;">{{ scheme.benefits }}</p>
+            </div>
+            {% endif %}
+
+            {% if scheme.application_process %}
+            <div style="margin: 2rem 0;">
+                <h3 style="margin-bottom: 1rem;">📋 Application Process</h3>
+                <p style="white-space: pre-wrap; background: var(--light); padding: 1.5rem; border-radius: 0.5rem;">{{ scheme.application_process }}</p>
+            </div>
+            {% endif %}
+
+            <div style="background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%); padding: 2rem; border-radius: 0.5rem; color: white; margin: 2rem 0;">
+                <h3 style="margin-bottom: 1rem;">Contact Information</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    {% if scheme.helpline %}
+                    <div>
+                        <p style="opacity: 0.9; margin-bottom: 0.5rem;">Helpline</p>
+                        <p style="font-size: 1.1rem; font-weight: 600;">{{ scheme.helpline }}</p>
+                    </div>
+                    {% endif %}
+                    {% if scheme.email %}
+                    <div>
+                        <p style="opacity: 0.9; margin-bottom: 0.5rem;">Email</p>
+                        <p style="font-size: 1.1rem; font-weight: 600;">{{ scheme.email }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                {% if scheme.official_link %}
+                <a href="{{ scheme.official_link }}" target="_blank" class="btn btn-primary">Visit Official Website</a>
+                {% endif %}
+                {% if scheme.application_link %}
+                <a href="{{ scheme.application_link }}" target="_blank" class="btn btn-secondary">Apply Online</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem;">
+        <div class="footer-bottom" style="text-align: center; padding: 2rem;">
+            <p>&copy; 2024 TN GOVT SCHEME BOT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

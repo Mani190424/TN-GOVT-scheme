@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - TN GOVT SCHEME BOT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ TN GOVT <span>SCHEME BOT</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('schemes') }}">Schemes</a></li>
+                <li><a href="{{ url_for('eligibility_check') }}">Eligibility</a></li>
+                <li id="language-toggle" class="btn btn-sm" style="cursor: pointer;">🌐 English | தமிழ்</li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <!-- Messages -->
+        <div class="chat-main" style="flex: 1; display: flex; flex-direction: column;">
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot">
+                    <div class="message-bubble bot">
+                        👋 Hello! I'm your TN Scheme Assistant. Ask me anything about government welfare schemes. 
+                        <br><br>Example questions:
+                        <br>• "I'm a farmer. What subsidy schemes are available?"
+                        <br>• "Show me education schemes for students"
+                        <br>• "What's the eligibility for old age pension?"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <input type="text" id="chat-input" class="chat-input" placeholder="Type your question here... (Shift+Enter for new line)">
+                </div>
+                <div class="chat-controls">
+                    <button id="voice-btn" class="voice-btn" title="Toggle Voice Input">🎤</button>
+                    <button id="send-btn" class="send-btn" title="Send Message">➤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem;">
+        <div class="footer-bottom" style="text-align: center; padding: 2rem;">
+            <p>&copy; 2024 TN GOVT SCHEME BOT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

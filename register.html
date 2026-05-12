@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - TN GOVT SCHEME BOT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ TN GOVT <span>SCHEME BOT</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('login') }}" class="btn btn-sm">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 500px; margin: 4rem auto; padding: 0 2rem;">
+        <div class="card">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Create Your Account</h2>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" class="form-group">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" name="fullname" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number *</label>
+                    <input type="tel" name="mobile" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>District</label>
+                    <select name="district" class="form-control">
+                        <option>Select District</option>
+                        <option>Chennai</option>
+                        <option>Coimbatore</option>
+                        <option>Madurai</option>
+                        <option>Salem</option>
+                        <option>Trichy</option>
+                        <option>Kanyakumari</option>
+                        <option>Virudhunagar</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" name="age" class="form-control" min="1" max="120">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="gender" class="form-control">
+                            <option>Select</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Occupation</label>
+                    <select name="occupation" class="form-control">
+                        <option>Select</option>
+                        <option>Farmer</option>
+                        <option>Student</option>
+                        <option>Laborer</option>
+                        <option>Business</option>
+                        <option>Service</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" class="form-control">
+                        <option>General</option>
+                        <option>OBC</option>
+                        <option>SC</option>
+                        <option>ST</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Password *</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 2rem;">Create Account</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 1.5rem;">
+                Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <footer style="margin-top: 4rem;">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>TN Scheme Bot</h4>
+                <p>Your AI-powered scheme assistant</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TN GOVT SCHEME BOT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

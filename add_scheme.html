@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Scheme - Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🏛️ ADMIN <span>PANEL</span></div>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('admin_schemes') }}">Schemes</a></li>
+                <li><a href="{{ url_for('logout') }}" class="btn btn-sm">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 3rem 0; max-width: 800px;">
+        <h1 style="margin-bottom: 2rem;">Add New Scheme</h1>
+
+        <div class="card">
+            <form method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Scheme Name *</label>
+                        <input type="text" name="scheme_name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Scheme Code</label>
+                        <input type="text" name="scheme_code" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" class="form-control">
+                        <option>Agricultural</option>
+                        <option>Education</option>
+                        <option>Health</option>
+                        <option>Social Welfare</option>
+                        <option>Housing</option>
+                        <option>Employment</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Eligibility Criteria</label>
+                    <textarea name="eligibility" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Minimum Age</label>
+                        <input type="number" name="age_min" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum Age</label>
+                        <input type="number" name="age_max" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Gender Specific</label>
+                        <select name="gender_specific" class="form-control">
+                            <option>Any</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Income Limit</label>
+                        <input type="number" name="income_limit" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Required Documents</label>
+                    <textarea name="required_documents" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Benefits</label>
+                    <textarea name="benefits" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Benefit Amount</label>
+                    <input type="text" name="benefit_amount" class="form-control" placeholder="e.g., ₹5000 or Free Service">
+                </div>
+
+                <div class="form-group">
+                    <label>Application Process</label>
+                    <textarea name="application_process" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>District</label>
+                        <input type="text" name="district" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Helpline Number</label>
+                        <input type="tel" name="helpline" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Official Link</label>
+                        <input type="url" name="official_link" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="is_state_wide"> State-wide Scheme
+                    </label>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary">Add Scheme</button>
+                    <a href="{{ url_for('admin_schemes') }}" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
